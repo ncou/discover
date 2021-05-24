@@ -39,5 +39,9 @@
                 "Chiron\\Discover\\Bootloader\\DiscoverCommandBootloader"
             ]
       }
-    }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "stable"
 }
