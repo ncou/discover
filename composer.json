@@ -36,7 +36,7 @@
     "extra": {
         "chiron": {
             "bootloaders": [
-                "Chiron\\Discover\\Bootloader\\DiscoverCommandBootloader",
+                "Chiron\\Discover\\Bootloader\\DiscoverCommandBootloader"
             ]
       }
     }
