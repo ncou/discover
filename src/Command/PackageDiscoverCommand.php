@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Chiron\DiscoverCommand;
+namespace Chiron\Discover\Command;
 
 use Chiron\Core\Command\AbstractCommand;
 use Chiron\Discover\PackageManifest;

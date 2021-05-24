@@ -44,15 +44,19 @@ final class PackageManifest
 
     public function discover()
     {
-        $installedPackages = [];
+        $packages = [];
 
         if (file_exists($path = $this->vendorDir . 'composer/installed.json')) {
-            $installedPackages = json_decode(file_get_contents($path), true);
+            $packages = json_decode(file_get_contents($path), true);
+            // Compatibility with Composer 2.0
+            if (isset($packages['packages'])) {
+                $packages = $packages['packages'];
+            }
         }
 
         $manifest = [];
 
-        foreach ($installedPackages as $package) {
+        foreach ($packages as $package) {
             if (! empty($package['extra']['chiron'])) {
                 $packageInfo = $package['extra']['chiron'];
 
