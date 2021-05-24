@@ -46,12 +46,10 @@ final class PackageManifest
     {
         $packages = [];
 
-        if (file_exists($path = $this->vendorDir . 'composer/installed.json')) {
-            $packages = json_decode(file_get_contents($path), true);
+        if (is_file($path = $this->vendorDir . 'composer/installed.json')) {
+            $installed = json_decode(file_get_contents($path), true);
             // Compatibility with Composer 2.0
-            if (isset($packages['packages'])) {
-                $packages = $packages['packages'];
-            }
+            $packages = $installed['packages'] ?? $installed;
         }
 
         $manifest = [];
@@ -134,17 +132,17 @@ final class PackageManifest
             return $this->manifest;
         }
 
-        if (! file_exists($this->manifestPath)) {
+        if (! is_file($this->manifestPath)) {
             $this->discover();
         }
 
         // TODO : améliorer le code : faire directement un require, et utiliser la méthode $this->files->exists() plutot que la méthode file_exists(). Virer de la classe FileSystem la méthode getRequire qui ne sera plus utilisée.
         // TODO : on devrait pas enregistrer le contenu du fichier dans un .json, ca serait plus simple à ecrire/lire ????
         /*
-        return $this->manifest = file_exists($this->manifestPath) ?
+        return $this->manifest = is_file($this->manifestPath) ?
             $this->filesystem->getRequire($this->manifestPath) : [];*/
 
-        return $this->manifest = file_exists($this->manifestPath) ?
+        return $this->manifest = is_file($this->manifestPath) ?
             json_decode(file_get_contents($this->manifestPath), true) : [];
     }
 }
