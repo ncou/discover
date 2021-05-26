@@ -6,6 +6,7 @@ namespace Chiron\Discover\Command;
 
 use Chiron\Core\Command\AbstractCommand;
 use Chiron\Discover\PackageManifest;
+use Chiron\Discover\Exception\DiscoverException;
 
 //https://github.com/laravel/framework/blob/7.x/src/Illuminate/Foundation/Console/PackageDiscoverCommand.php
 
@@ -21,7 +22,13 @@ class PackageDiscoverCommand extends AbstractCommand
 
     public function perform(PackageManifest $manifest): int
     {
-        $manifest->discover();
+        try {
+            $manifest->discover();
+        } catch(DiscoverException $e){
+            $this->error($e->getMessage());
+
+            return self::FAILURE;
+        }
 
         // TODO : si on est en mode verbose on pourrait afficher plus d'infos du manifest, au lieu de juste afficher le package on pourrait afficher le détail (cad un bootloader, un provider, etc...)
         // TODO : utiliser un iterator dans la classe PackageManifest ????

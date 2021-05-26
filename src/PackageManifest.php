@@ -7,6 +7,7 @@ namespace Chiron\Discover;
 use Chiron\Core\Directories;
 use Chiron\Filesystem\Filesystem;
 use RuntimeException;
+use Chiron\Discover\Exception\DiscoverException;
 
 //https://github.com/top-think/framework/blob/6.0/src/think/console/command/ServiceDiscover.php
 
@@ -84,9 +85,7 @@ final class PackageManifest
         // TODO : à virer
         // Ensure the directory exists and is writable.
         if (! is_writable($this->cacheDir)) {
-            // TODO : utiliser un sprintf()
-            // TODO : lever une ApplicationException::class ou une ImproperlyConfiguredException ????
-            throw new RuntimeException('The ' . $this->cacheDir . ' directory must be present and writable.');
+            throw new DiscoverException(sprintf('The "%s" directory must be present and writable.', $this->cacheDir));
         }
 
         // TODO : on devrait pas enregistrer le contenu du fichier dans un .json, ca serait plus simple à ecrire/lire ????
