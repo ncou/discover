@@ -14,7 +14,6 @@ use Chiron\Discover\Exception\DiscoverException;
 // TODO : vérifier si les packages sont ordonnés => https://github.com/thecodingmachine/discovery/blob/c5d15800bdd7ddf8390d00eeb9e570142eb69f10/src/PackagesOrderer.php
 
 // TODO : on devrait surement forcer un refresh de ce fichier packages.php lorsque l'utilisateur fait un "composer -dump-update" c'est à dire qu'il faudrait lancer la commande de clean du cache à ce moment là !!!
-// TODO : on devrait aussi gérer les "inflectors" (c'est les mutations) à ajouter au container.
 // TODO : classe à renommer en PackageDiscover::class ????
 // TODO : il faudrait pas ajouter un Iterator pour lister tous les packages ????
 final class PackageManifest
@@ -103,12 +102,12 @@ final class PackageManifest
 
     public function getProviders(): array
     {
-        return $this->getMeta('providers');
+        return $this->getMeta('providers');// TODO : utiliser des constantes privées de classe !!!
     }
 
     public function getBootloaders(): array
     {
-        return $this->getMeta('bootloaders');
+        return $this->getMeta('bootloaders');// TODO : utiliser des constantes privées de classe !!!
     }
 
     private function getMeta(string $key): array
