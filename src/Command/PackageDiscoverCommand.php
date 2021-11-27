@@ -37,6 +37,7 @@ class PackageDiscoverCommand extends AbstractCommand
             $this->line("Discovered Package: <info>{$package}</info>");
         }*/
 
+        // TODO : afficher ce niveau de détail seulement si on est en mode verbose ????
         foreach ($manifest->getManifest() as $package => $extra) {
             $this->line(sprintf(" - Discovering <info>%s</info> (<comment>%s</comment>)", $package, $extra['version']));
 
