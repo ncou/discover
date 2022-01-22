@@ -9,6 +9,7 @@ use Chiron\Filesystem\Filesystem;
 use RuntimeException;
 use Chiron\Discover\Exception\DiscoverException;
 
+//https://github.com/laravel/framework/blob/8.x/src/Illuminate/Foundation/PackageManifest.php
 //https://github.com/top-think/framework/blob/6.0/src/think/console/command/ServiceDiscover.php
 
 // TODO : vérifier si les packages sont ordonnés => https://github.com/thecodingmachine/discovery/blob/c5d15800bdd7ddf8390d00eeb9e570142eb69f10/src/PackagesOrderer.php
@@ -20,9 +21,6 @@ final class PackageManifest
 {
     /** @var array */
     private $manifest;
-
-    /** @var string */
-    private $cacheDir;
 
     /** @var string */
     private $vendorDir;
@@ -38,8 +36,7 @@ final class PackageManifest
         $this->filesystem = $filesystem;
 
         $this->vendorDir = $directories->get('@vendor');
-        $this->cacheDir = $directories->get('@cache');
-        $this->manifestPath = $this->cacheDir . 'packages.json';
+        $this->manifestPath = $directories->get('@cache/packages.json');
     }
 
     public function discover()
@@ -83,8 +80,8 @@ final class PackageManifest
 
         // TODO : à virer
         // Ensure the directory exists and is writable.
-        if (! is_writable($this->cacheDir)) {
-            throw new DiscoverException(sprintf('The "%s" directory must be present and writable.', $this->cacheDir));
+        if (! is_writable($dirname = dirname($this->manifestPath))) {
+            throw new DiscoverException(sprintf('The "%s" directory must be present and writable.', $dirname));
         }
 
         // TODO : autre exemple : https://github.com/top-think/framework/blob/6.0/src/think/console/command/ServiceDiscover.php#L43
