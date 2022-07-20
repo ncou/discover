@@ -9,6 +9,8 @@ use Chiron\Core\Memory;
 use Chiron\Filesystem\Filesystem;
 use RuntimeException;
 
+//https://github.com/spiral-packages/discoverer
+
 //https://github.com/laravel/framework/blob/8.x/src/Illuminate/Foundation/PackageManifest.php
 //https://github.com/top-think/framework/blob/6.0/src/think/console/command/ServiceDiscover.php
 
